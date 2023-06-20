@@ -47,7 +47,7 @@ function interpretCredentials(apiKey: string): ICredentials {
         credentials.endpoint = parts[2];
 
         credentials.axios = axios.create();
-        credentials.axios.defaults.baseURL = `http://${credentials.endpoint}:2421/`;
+        credentials.axios.defaults.baseURL = `https://${credentials.endpoint}/`;
         credentials.axios.defaults.headers.common['Authorization'] = `${credentials.token}@${credentials.institute}`;
     } catch (e) {
         throw E.INVALID_API_KEY();
