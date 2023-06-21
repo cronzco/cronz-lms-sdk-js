@@ -1,6 +1,6 @@
 {
   "name": "cronz-lms-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cronz LMS API wrapper",
   "homepage": "https://cronz.co/",
   "keywords": [
