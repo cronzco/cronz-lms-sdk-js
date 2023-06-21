@@ -2,8 +2,7 @@ import {Credentials_c, ICredentials} from "../core/credentials";
 import {IUserProfile, IUserProfileCreateInfo, IUserProfileList, IUserProfileUpdateInfo} from "./profile";
 import {E} from "../core/error";
 import {IUserProfileFilter} from "./filter";
-import {fromBoolean, toBoolean} from "../utils/boolean";
-import {AxiosError} from "axios";
+import {fromBoolean} from "../utils/boolean";
 
 function responseToUserProfile(json: any): IUserProfile {
     const profile: IUserProfile = {
@@ -107,9 +106,14 @@ class UserManager extends Credentials_c {
     }
 
     async updateProfile(profile: IUserProfileUpdateInfo): Promise<void> {
-        let numChangedFields: number = 0;
+        let numChangedFields = 0;
 
-        const d: any = {
+        const d: {
+            fields: {
+                [fieldKey: string]: unknown
+            },
+            [fieldKey: string]: unknown
+        } = {
             id: profile.id,
             fields: {}
         };
@@ -143,7 +147,7 @@ class UserManager extends Credentials_c {
         }
 
         try {
-            const response = await this.axios.post(`/user/up/${d.id}`, JSON.stringify(d));
+            await this.axios.post(`/user/${d.id}`, JSON.stringify(d));
             return;
         } catch (e) {
             return Promise.reject(E.Interpret(e));
